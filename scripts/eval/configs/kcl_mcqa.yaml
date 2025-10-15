@@ -1,0 +1,7 @@
+input_dir: ""
+n_jobs: 8
+verbose: True
+judge_model: {}
+hydra:
+  run:
+    dir: outputs_eval/${now:%Y-%m-%d_%H-%M-%S}

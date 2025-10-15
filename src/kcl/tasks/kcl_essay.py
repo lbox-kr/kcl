@@ -50,17 +50,11 @@ class KCLEssay:
         return {"input_text": input_text.strip()}
 
     def load(self):
-        task = {
-            "system_prompt": """
-당신은 법률 전문가 입니다. 당신은 변호사 시험 사례형 문제의 답안을 작성해 줍니다. 주어진 법률 질문에 대하여 명확한 법적 근거(법령, 대법원 판례 등)와 함께 작성해 주세요.
-""".strip()
-        }
 
         ds = load_dataset("lbox/kcl", "kcl_essay", split="test")
         ds = ds.map(self._concat_columns, load_from_cache_file=False)
-        task["ds"] = ds
 
-        return task
+        return ds
 
     def __call__(self):
         return self.load()

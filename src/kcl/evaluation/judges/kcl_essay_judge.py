@@ -9,7 +9,7 @@ from kcl.models import get_model
 tqdm = partial(tqdm, dynamic_ncols=True)
 
 
-class KCLEvalTasksRubricBased:
+class KCLEssayEval:
 
     def __init__(self, **cfg):
         self.model = get_model(cfg["model_name"], **cfg["kwargs"])
@@ -36,7 +36,6 @@ class KCLEvalTasksRubricBased:
 
                 n_cache_toks = self.model.count_tokens(input_text_prefix)
                 if n_cache_toks < 1024:
-                    print(f"Cache with less than 1024 tokens: {n_cache_toks}")
                     cache = None
 
                 else:

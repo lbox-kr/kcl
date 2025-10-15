@@ -1,13 +1,9 @@
-from .kbl import KBL
-from .kbl_oracle_rag import KBLOracleRAG
-from .kcl import KCL
-from .kcl_oracle_rag import KCLOracleRAG
+from .kcl_essay import KCLEssay
+from .kcl_mcqa import KCLMCQA
 
 _TASK_REGISTRY = {
-    "kbl": KBL,
-    "kbl_oracle_rag": KBLOracleRAG,
-    "kcl": KCL,
-    "kcl_oracle_rag": KCLOracleRAG,
+    "kcl_essay": KCLEssay,
+    "kcl_mcqa": KCLMCQA,
 }
 
 
@@ -23,9 +19,5 @@ def get_loader(name, **kwargs):
 
 
 __all__ = [
-    "KBL",
-    "KBLOracleRAG",
-    "KCL",
-    "KCLOracleRAG",
     "get_loader",
 ]

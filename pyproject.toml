@@ -38,6 +38,7 @@ dependencies = [
     "joblib",
     "loguru",
     "boto3",
+    "hydra-core",
     "jsonquotefixer",
 ]
 
@@ -52,3 +53,6 @@ packages = ["src/kcl"]
 [project.urls]
 Homepage = "https://lbox.kr"
 Repository = "https://github.com/lbox-kr/kcl"
+
+[project.scripts]
+kcl = "kcl.__main__:main"

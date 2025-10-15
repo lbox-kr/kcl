@@ -1,0 +1,30 @@
+input_dir: ""
+n_jobs: 8
+judge_model:
+  model_name: gemini-2.5-flash
+  kwargs:
+    thinking_budget: -1
+  score_per_rubric: 1
+  prompt_templates:
+    instruction: |-
+      당신은 법률 전문가 입니다. 당신은 주어진 [평가척도]를 기준으로 [제출된 변호사 시험 답안지]를 엄격하게 평가하여 점수를 매깁니다.
+      점수는 아래 key와 value를 포함한 json codeblock 형태로 답변해주세요.
+      
+      ```json
+        {
+          "점수": [int],
+          "근거": [string]
+        }
+      ```
+    model_answer_template: |-
+      다음은 제출된 답안지 입니다.
+      [제출된 변호사 시험 답안지]: {answer}
+      이제 다음 [평가척도]를 바탕으로 위 [제출된 변호사 시험 답안지]을 평가하여 각 평가 척도별로 [점수], [근거]를 작성해 주세요. 점수는 평가척도를 만족하면 {score_per_rubric}점, 만족하지 않으면 0점 입니다. {score_per_rubric} 혹은 0 두 수 중 하나로 답변해 주세요.
+    rubric_template: |-
+      [평가척도]
+      {rubrics_with_score}
+verbose: True
+
+hydra:
+  run:
+    dir: outputs_eval/${now:%Y-%m-%d_%H-%M-%S}

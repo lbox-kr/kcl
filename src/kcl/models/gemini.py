@@ -86,6 +86,12 @@ class GeminiModel:
 
         return response.text
 
+    def count_tokens(self, text: str) -> int | None:
+        response = self.client.models.count_tokens(
+            model=self.model_name, contents=[text]
+        )
+        return response.total_tokens
+
 
 if __name__ == "__main__":
 

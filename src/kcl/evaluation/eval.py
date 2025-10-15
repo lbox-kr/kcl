@@ -17,9 +17,8 @@ from kcl.evaluation.judges import get_judge
 @hydra.main(version_base=None, config_path=None, config_name=None)
 def main(cfg: DictConfig):
 
-    if not cfg.verbose:
-        logging.getLogger("httpx").propagate = False
-        logging.getLogger("google_genai.models").propagate = False
+    logging.getLogger("httpx").propagate = cfg.verbose
+    logging.getLogger("google_genai.models").propagate = cfg.verbose
 
     input_dir = Path(cfg.get("input_dir", ""))
     if not input_dir:

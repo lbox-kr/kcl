@@ -1,4 +1,5 @@
 import json
+import logging
 import random
 import time
 from collections import defaultdict
@@ -13,8 +14,8 @@ from omegaconf import DictConfig
 from tenacity import retry, stop_after_attempt, wait_fixed
 from tqdm.auto import tqdm
 
-from kcl.data import get_loader
 from kcl.models import get_model
+from kcl.tasks import get_loader
 
 MAX_RETRY = 5
 RETRY_WAIT_SEC = 10
@@ -62,14 +63,15 @@ def generate_sample(model, sample):
 @hydra.main(version_base=None, config_path=None, config_name=None)
 def main(cfg: DictConfig):
 
+    logging.getLogger("httpx").propagate = cfg.verbose
+    logging.getLogger("google_genai.models").propagate = cfg.verbose
+
     model = get_model(cfg.model_name, **cfg.model_kwargs)
 
     loader = get_loader(cfg.tasks, **cfg.tasks_kwargs)
-    tasks = loader.load()
+    task = loader.load()
 
-    flat_samples = [
-        (task._info.config_name, sample) for task in tasks for sample in task
-    ]
+    flat_samples = [(task._info.config_name, sample) for sample in task]
 
     run_dir = Path(HydraConfig.get().runtime.output_dir)
     save_root = run_dir / "results"

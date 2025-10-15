@@ -1,5 +1,6 @@
 uv.lock
 .env
+.vertex_credentials.json
 __pycache__/
-*.py[codz]
-*$py.class
+outputs_infer/
+outputs_eval/

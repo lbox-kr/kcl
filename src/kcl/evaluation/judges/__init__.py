@@ -1,11 +1,9 @@
-from .kbl import KBLEval
-from .kcl import KCLEvalTasksRubricBased
+from .kcl_essay_judge import KCLEssayEval
+from .kcl_mcqa_judge import KCLMCQAEval
 
 _TASK_REGISTRY = {
-    "kcl": KCLEvalTasksRubricBased,
-    "kcl_oracle_rag": KCLEvalTasksRubricBased,
-    "kbl": KBLEval,
-    "kbl_oracle_rag": KBLEval,
+    "kcl_essay": KCLEssayEval,
+    "kcl_mcqa": KCLMCQAEval,
 }
 
 
@@ -21,6 +19,5 @@ def get_judge(name, **kwargs):
 
 
 __all__ = [
-    "KCLEvalTasksRubricBased",
     "get_judge",
 ]
