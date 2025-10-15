@@ -27,7 +27,8 @@ class KCLMCQA:
 
                 input_text += "\n\n"
 
-        input_text += "[문제]: \n"
+        input_text += "[문제]: "
+        input_text += 'example["question"] \n\n'
 
         input_text += "다음 각 선택지를 읽고 A, B, C, D, E 중 하나를 선택하여 '답변: A' 와 같이 단답식으로 답해 주세요.\n\n"
         input_text += f'A. {example["A"]}\n\n'

@@ -30,26 +30,15 @@ AWS_SECRET_ACCESS_KEY="..."
 AWS_SESSION_TOKEN="..."
 ```
 
+## KCL Essay
+
 ### Inference
-
-## Inference
-
-### KCL Essay
 
 ```bash
 ./scripts/infer/run_infer.sh \
 ./scripts/infer/configs/kcl_essay.yaml \
 model_name=gemini-2.5-flash \
 tasks_kwargs.with_precedents=True \
-model_kwargs.thinking_budget=-1
-```
-
-### KCL MCQA
-
-```bash
-./scripts/infer/run_infer.sh \
-./scripts/infer/configs/kcl_mcqa.yaml \
-model_name=gemini-2.5-flash \
 model_kwargs.thinking_budget=-1
 ```
 
@@ -62,7 +51,27 @@ model_kwargs.thinking_budget=-1
 n_jobs=8
 ```
 
-### Citation
+## KCL MCQA
+
+### Inference
+
+```bash
+./scripts/infer/run_infer.sh \
+./scripts/infer/configs/kcl_mcqa.yaml \
+model_name=gemini-2.5-flash \
+model_kwargs.thinking_budget=-1
+```
+
+### Evaluation
+
+```bash
+./scripts/eval/run_eval.sh \
+./scripts/eval/configs/kcl_mcqa.yaml \
+./outputs_infer/kcl_mcqa/gemini-2.5-flash/2025-10-15_12-10-38 \
+n_jobs=8
+```
+
+## Citation
 ```tex
 
 ```

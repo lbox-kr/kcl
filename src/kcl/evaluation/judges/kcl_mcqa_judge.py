@@ -92,7 +92,7 @@ class KCLMCQAEval:
 
     def judge(self, item):
 
-        gt_raw = item.get("gt", "")
+        gt_raw = item.get("label", "")
         model_output = item.get("model_output") or ""
 
         gt = str(gt_raw).strip().upper()
