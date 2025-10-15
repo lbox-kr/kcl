@@ -1,0 +1,54 @@
+[tool.black]
+line-length = 79
+
+[tool.ruff]
+line-length = 79
+target-version = "py312"
+include = ["*.py"]
+exclude = ["notebooks"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+ignore = ["E501"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["kcl"]
+combine-as-imports = true
+
+[build-system]
+requires = ["hatchling>=1.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "kcl"
+version = "0.2.0"
+authors = [
+    { name = "Hongseok Oh", email = "cxv0519@uos.ac.kr" },
+    { name = "Wonseok Hwang", email = "wonseok.hwang@uos.ac.kr" },
+    { name = "Kyoungwoon On", email = "kyoungwoon.on@lbox.kr" },
+]
+description = "Korean Canonical Legal Benchmarks"
+readme = "README.md"
+
+requires-python = ">=3.11,<3.13"
+dependencies = [
+    "google-genai",
+    "openai",
+    "datasets",
+    "joblib",
+    "loguru",
+    "boto3",
+    "jsonquotefixer",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pre-commit",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/kcl"]
+
+[project.urls]
+Homepage = "https://lbox.kr"
+Repository = "https://github.com/lbox-kr/kcl"
