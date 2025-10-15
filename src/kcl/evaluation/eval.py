@@ -1,5 +1,7 @@
 import json
 import logging
+import random
+import time
 from collections import defaultdict
 from pathlib import Path
 
@@ -9,9 +11,32 @@ from hydra.core.hydra_config import HydraConfig
 from joblib import Parallel, delayed
 from loguru import logger
 from omegaconf import DictConfig
+from tenacity import retry, stop_after_attempt, wait_fixed
 from tqdm.auto import tqdm
 
 from kcl.evaluation.judges import get_judge
+
+MAX_RETRY = 5
+RETRY_WAIT_SEC = 10
+
+
+def retry_log(retry_state):
+    logger.warning(
+        f"[Retry {retry_state.attempt_number}/{MAX_RETRY}] {retry_state.outcome.exception()}",
+    )
+    base = RETRY_WAIT_SEC * (2**retry_state.attempt_number)
+    jitter = random.uniform(0, RETRY_WAIT_SEC)
+    time.sleep(base + jitter)
+
+
+@retry(
+    stop=stop_after_attempt(MAX_RETRY),
+    wait=wait_fixed(RETRY_WAIT_SEC),
+    before_sleep=retry_log,
+    reraise=True,
+)
+def judge_sample(judge, sample):
+    return judge(sample)
 
 
 @hydra.main(version_base=None, config_path=None, config_name=None)
@@ -62,7 +87,7 @@ def main(cfg: DictConfig):
 
     judge = get_judge(tasks, **cfg["judge_model"])
     eval_results = Parallel(n_jobs=cfg.get("n_jobs", 1), backend="threading")(
-        delayed(judge)(sample)
+        delayed(judge_sample)(judge, sample)
         for _, sample in tqdm(inference_results_flattened, desc="Evaluating")
     )
 

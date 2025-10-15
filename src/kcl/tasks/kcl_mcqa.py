@@ -43,8 +43,6 @@ class KCLMCQA:
         ds = load_dataset("lbox/kcl", "kcl_mcqa", split="test")
         ds = ds.map(self._concat_columns, load_from_cache_file=False)
 
-        print(ds)
-
         return ds
 
     def __call__(self):
