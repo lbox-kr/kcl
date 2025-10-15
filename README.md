@@ -76,8 +76,7 @@ n_jobs=8
     kcl,
     title={Korean Canonical Legal Benchmark: Toward Knowledge-Independent Evaluation of LLMs' Legal Reasoning Capabilities}, 
     author={Hongseok Oh, Wonseok Hwang, and Kyoung-Woon On},
-    year={2025},
-    primaryClass={cs.NLP},
+    year={2025}
 }
 ```
 
