@@ -67,11 +67,22 @@ model_kwargs.thinking_budget=-1
 ```bash
 ./scripts/eval/run_eval.sh \
 ./scripts/eval/configs/kcl_mcqa.yaml \
-./outputs_infer/kcl_mcqa/gemini-2.5-flash/2025-10-15_12-10-38 \
+./outputs_infer/kcl_mcqa/gemini-2.5-flash/2025-10-15_12-33-09 \
 n_jobs=8
 ```
 
 ## Citation
-```tex
 
+```tex
+@misc{
+    kcl,
+    title={Korean Canonical Legal Benchmark: Toward Knowledge-Independent Evaluation of LLMs' Legal Reasoning Capabilities}, 
+    author={Hongseok Oh, Wonseok Hwang, and Kyoung-Woon On},
+    year={2025},
+    primaryClass={cs.NLP},
+}
 ```
+
+## License
+
+Our evaluation code is licensed under the [MIT License](LICENSE).
