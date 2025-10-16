@@ -18,7 +18,7 @@ class KCLMCQA:
         if self.with_precedents:
 
             input_text += "다음의 [참고 판례]를 참조하여 [문제]에 대한 답을 선택지 중에서 고르세요.\n\n"
-            input_text += "[참고 판례]: \n"
+            input_text += "### 판례:\n"
 
             for content in example["supporting_precedents"]:
                 content_dict = json.loads(content)
@@ -27,10 +27,10 @@ class KCLMCQA:
 
                 input_text += "\n\n"
 
-        input_text += "[문제]: "
+        input_text += "### 질문: "
         input_text += f'{example["question"]} \n\n'
 
-        input_text += "다음 각 선택지를 읽고 A, B, C, D, E 중 하나를 선택하여 '답변: A' 와 같이 단답식으로 답해 주세요.\n\n"
+        input_text += "다음 각 선택지를 읽고 A, B, C, D, E 중 하나를 선택하여 ''답변: A'' 와 같이 단답식으로 답해 주세요.\n\n"
         input_text += f'A. {example["A"]}\n\n'
         input_text += f'B. {example["B"]}\n\n'
         input_text += f'C. {example["C"]}\n\n'

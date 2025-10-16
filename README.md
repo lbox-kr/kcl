@@ -60,6 +60,13 @@ model_name=gemini-2.5-flash \
 model_kwargs.thinking_budget=-1
 ```
 
+```bash
+./scripts/infer/run_infer.sh \
+./scripts/infer/configs/kcl_mcqa.yaml \
+model_name=gpt-5-mini-2025-08-07 \
+model_kwargs.thinking_budget=medium
+```
+
 ### Evaluation
 
 ```bash
