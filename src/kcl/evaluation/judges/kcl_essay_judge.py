@@ -111,7 +111,7 @@ class KCLEssayEval:
     ):
         if grade_raw_json_str is None:
             parsing_success = False
-        if grade_raw_json_str is not None:
+        else:
             grade, parsing_success = parse_json_from_raw_string(
                 grade_raw_json_str
             )
