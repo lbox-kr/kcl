@@ -49,6 +49,11 @@ model_kwargs.thinking_budget=-1
 n_jobs=8
 ```
 
+### Results
+
+<img width="339" height="597" alt="fEb_RSiHVCGT6v0V7A13B" src="https://github.com/user-attachments/assets/c689fdb8-b89e-4c86-8232-0a871f40c448" />
+
+
 ## KCL MCQA
 
 ### Inference
@@ -68,6 +73,10 @@ model_kwargs.thinking_budget=-1
 ./outputs_infer/kcl_mcqa/gemini-2.5-flash/2025-10-15_12-33-09 \
 n_jobs=8
 ```
+
+### Results
+
+<img width="339" height="616" alt="OmiTG5Tv6pN2PRtiBhspy" src="https://github.com/user-attachments/assets/f6326505-5611-4c66-a80d-a458549b3730" />
 
 ## Citation
 
