@@ -13,7 +13,6 @@ class GeminiModel:
         self,
         model_name: str,
         thinking_budget: int = -1,
-        system_prompt: str | None = None,
     ):
         self.__set_client()
 
@@ -22,7 +21,6 @@ class GeminiModel:
 
         self.model_name = model_name
         self.thinking_budget = thinking_budget
-        self.system_prompt = system_prompt
 
         self.usage_history = []
 
@@ -48,7 +46,6 @@ class GeminiModel:
 
     def generate(self, prompt: str, cache=None):
         config = types.GenerateContentConfig(
-            system_instruction=self.system_prompt,
             thinking_config=types.ThinkingConfig(
                 thinking_budget=self.thinking_budget
             ),

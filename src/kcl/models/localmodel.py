@@ -7,11 +7,9 @@ class LocalModel:
     def __init__(
         self,
         model_name: str,
-        system_prompt: str = "You are a helpful assistant",
         port: int = 8000,
     ):
         self.model_name = model_name
-        self.system_prompt = system_prompt
         self.port = port
         self.__set_client()
 
@@ -26,7 +24,6 @@ class LocalModel:
     def generate(self, prompt: str):
 
         message = [
-            {"role": "system", "content": self.system_prompt},
             {"role": "user", "content": prompt},
         ]
 

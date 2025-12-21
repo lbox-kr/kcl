@@ -9,7 +9,6 @@ class ClaudeModel:
         self,
         model_name: str,
         thinking_budget: int = 8192,
-        system_prompt: str = None,
     ):
         self.__set_client()
 
@@ -18,7 +17,6 @@ class ClaudeModel:
 
         self.model_name = model_name
         self.thinking_budget = thinking_budget
-        self.system_prompt = system_prompt
 
         self.usage_history = []
 
@@ -34,11 +32,6 @@ class ClaudeModel:
         )
 
     def generate(self, prompt: str):
-        system = [
-            {
-                "text": self.system_prompt or "You are a helpful assistant.",
-            }
-        ]
 
         conversation = [
             {
@@ -59,14 +52,12 @@ class ClaudeModel:
             response = self.client.converse(
                 modelId=self.model_name,
                 messages=conversation,
-                system=system,
             )
 
         else:
             response = self.client.converse(
                 modelId=self.model_name,
                 messages=conversation,
-                system=system,
                 inferenceConfig={"maxTokens": 128_000},
                 additionalModelRequestFields=reasoning_config,
             )

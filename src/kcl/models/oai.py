@@ -7,7 +7,6 @@ class OAIModel:
         self,
         model_name: str,
         thinking_budget: str = "None",
-        system_prompt: str = None,
     ):
         self.__set_client()
 
@@ -20,12 +19,6 @@ class OAIModel:
         if thinking_budget != "None":
             self.reasoning = {"effort": thinking_budget}
 
-        self.system_prompt = (
-            system_prompt
-            if system_prompt
-            else ("You are a helpful assistant.")
-        )
-
         self.usage_history = []
 
     def __set_client(self):
@@ -37,7 +30,6 @@ class OAIModel:
         response = self.client.responses.create(
             model=self.model_name,
             input=[
-                {"role": "developer", "content": self.system_prompt},
                 {"role": "user", "content": prompt},
             ],
             reasoning=self.reasoning,

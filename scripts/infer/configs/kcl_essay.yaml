@@ -1,7 +1,6 @@
 model_name: "model_name_placeholder"
 model_kwargs:
   thinking_budget: None
-  system_prompt: 당신은 법률 전문가 입니다. 당신은 변호사 시험 사례형 문제의 답안을 작성해 줍니다. 주어진 법률 질문에 대하여 명확한 법적 근거(법령, 대법원 판례 등)와 함께 작성해 주세요.
 
 tasks: kcl_essay
 tasks_kwargs:
