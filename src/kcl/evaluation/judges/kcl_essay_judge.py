@@ -48,7 +48,7 @@ class KCLEssayEval:
                         ),
                     )
 
-            criterion = f"{rubric} (점수: {self.score_per_rubric})"
+            criterion = f"{rubric} (score: {self.score_per_rubric})"
 
             if cache is not None:
                 input_text = (
@@ -90,7 +90,7 @@ class KCLEssayEval:
         _item["grades"] = grades
 
         _item["normalized_score_sum"] = sum(
-            v["grade"]["문항점수로정규화된점수"]
+            v["grade"]["normalized_item_score"]
             for v in grades.values()
             if v["success"]
         )
@@ -116,22 +116,20 @@ class KCLEssayEval:
                 grade_raw_json_str
             )
             if parsing_success:
-                grade["척도"] = rubric_with_score
-                grade["문항점수로정규화된점수"] = (
-                    grade["점수"]
+                grade["rubric"] = rubric_with_score
+                grade["normalized_item_score"] = (
+                    grade["item_score"]
                     / score_per_rubric
                     * original_full_score
                     / n_rubrics
                 )
-                grade["문항점수로정규화된만점점수"] = (
-                    original_full_score / n_rubrics
-                )
+                grade["normalized_max_score"] = original_full_score / n_rubrics
         if not parsing_success:
             grade = {
-                "평가척도번호": rubric_id,
-                "점수": None,
-                "근거": None,
-                "문항점수로정규화된점수": None,
-                "문항점수로정규화된만점점수": original_full_score / n_rubrics,
+                "rubric_id": rubric_id,
+                "item_score": None,
+                "reason": None,
+                "normalized_item_score": None,
+                "normalized_max_score": original_full_score / n_rubrics,
             }
         return grade, parsing_success
