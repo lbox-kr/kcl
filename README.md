@@ -91,4 +91,4 @@ n_jobs=8
 
 ## License
 
-Our evaluation code is licensed under the [MIT License](LICENSE).
+Our evaluation code and dataset are licensed under the [CC BY-NC 4.0 license](LICENSE.md).
