@@ -1,3 +1,5 @@
+from loguru import logger
+
 try:
     from .claude import ClaudeModel
 
@@ -5,6 +7,7 @@ try:
 except Exception as e:
     ClaudeModel = None
     _err_claude = e
+    logger.warning(f"Failed to import ClaudeModel: {e}")
 
 try:
     from .gemini import GeminiModel
@@ -13,6 +16,7 @@ try:
 except Exception as e:
     GeminiModel = None
     _err_gemini = e
+    logger.warning(f"Failed to import GeminiModel: {e}")
 
 try:
     from .oai import OAIModel
@@ -21,7 +25,16 @@ try:
 except Exception as e:
     OAIModel = None
     _err_oai = e
+    logger.warning(f"Failed to import OAIModel: {e}")
 
+try:
+    from .localmodel import LocalModel
+
+    _err_localmodel = None
+except Exception as e:
+    LocalModel = None
+    _err_localmodel = e
+    logger.warning(f"Failed to import LocalModel: {e}")
 
 API_MODEL_REGISTRY = {
     "us.anthropic.claude-3-7-sonnet-20250219-v1:0": ClaudeModel,
@@ -42,6 +55,9 @@ def get_model(model_name, **kwargs):
     key = model_name.lower()
 
     if key not in API_MODEL_REGISTRY:
+        if "port" in kwargs:
+            return LocalModel(model_name, **kwargs)
+
         raise ValueError(f"Unsupported model name: {model_name}")
 
     return API_MODEL_REGISTRY[key](model_name, **kwargs)
