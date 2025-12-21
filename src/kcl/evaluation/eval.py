@@ -110,16 +110,23 @@ def main(cfg: DictConfig):
         )
 
     score_summation = {
-        k: sum([item["normalized_score_sum"] for item in final_results[k]])
+        k: {
+            "score_sum": sum(
+                [item["normalized_score_sum"] for item in final_results[k]]
+            ),
+            "full_score_sum": sum(
+                [item.get("score", 1) for item in final_results[k]]
+            ),
+        }
         for k in sorted(final_results.keys())
     }
 
     score_md_table = ""
-    score_md_table += "| Task Name | Score |\n"
-    score_md_table += "| --- | --- |\n"
+    score_md_table += "| Task Name | Score | Percentage |\n"
+    score_md_table += "| --- | --- | --- |\n"
     score_md_table += "\n".join(
         [
-            f"| {task_name} | {score:.2f} |"
+            f"| {task_name} | {score['score_sum']:.2f} | {score['score_sum'] / score['full_score_sum']:.2%} |"
             for task_name, score in score_summation.items()
         ]
     )
