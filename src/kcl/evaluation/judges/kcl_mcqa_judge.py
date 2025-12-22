@@ -20,18 +20,16 @@ class KCLMCQAEval:
         self,
         *,
         choices: str = "ABCDE",
-        allow_fallback: bool = True,
         debug: bool = False,
     ):
 
         self.choices = choices
-        self.allow_fallback = allow_fallback
         self.debug = debug
 
         choice_re = _build_choice_re(self.choices)
 
         self._primary_re = re.compile(
-            rf"정답은\s*[\(\[\"'“”‘’『「]?\s*({choice_re})\s*[\)\]\"'“”‘’』」]?\s*입니다[\.!\u3002]*",
+            rf"정답은\s*(?:\*\*)?\s*[\(\[\"'“”‘’『「]?\s*({choice_re})\s*[\)\]\"'“”‘’』」]?\s*(?:\*\*)?\s*(?:입니다[\.!\u3002]*)?",
             flags=re.IGNORECASE,
         )
 
@@ -43,20 +41,10 @@ class KCLMCQAEval:
             rf"(?:Final\s*Answer|Answer)\s*[:：]?\s*[\(\[]?\s*({choice_re})\s*[\)\]]?",
             rf"\"answer\"\s*:\s*\"({choice_re})\"",
             rf"'answer'\s*:\s*'({choice_re})'",
-            rf"(?:최종\s*정답|최종정답)\s*[:：]?\s*[\(\[\"'“”‘’『「]?\s*({choice_re})\s*[\)\]\"'“”‘’』」]?",
-            rf"정답\s*[:：]?\s*[\(\[\"'“”‘’『「]?\s*({choice_re})\s*[\)\]\"'“”‘’』」]?",
-            rf"(?:Final\s*Answer|Answer)\s*[:：]?\s*[\(\[]?\s*({choice_re})\s*[\)\]]?",
-            rf"\"answer\"\s*:\s*\"({choice_re})\"",
-            rf"'answer'\s*:\s*'({choice_re})'",
         ]
         self._secondary_res = [
             re.compile(p, flags=re.IGNORECASE) for p in secondary_patterns
         ]
-
-        self._fallback_re = re.compile(
-            rf"\b({choice_re})\b(?!.*\b{choice_re}\b)",
-            flags=re.IGNORECASE | re.DOTALL,
-        )
 
     def _extract_primary(self, text: str) -> Optional[str]:
         m = self._primary_re.search(text)
@@ -69,12 +57,6 @@ class KCLMCQAEval:
                 return m.group(1)
         return None
 
-    def _extract_fallback(self, text: str) -> Optional[str]:
-        if not self.allow_fallback:
-            return None
-        m = self._fallback_re.search(text)
-        return m.group(1) if m else None
-
     def _extract_answer(self, text: str) -> Optional[str]:
 
         if not text:
@@ -83,7 +65,6 @@ class KCLMCQAEval:
         for extractor in (
             self._extract_primary,
             self._extract_secondary,
-            self._extract_fallback,
         ):
             ans = extractor(text)
             if ans:
@@ -92,7 +73,8 @@ class KCLMCQAEval:
 
     def judge(self, item):
 
-        gt_raw = item.get("label", "")
+        # Dataset uses "label"; allow "gt" for local/debug cases.
+        gt_raw = item.get("label", item.get("gt", ""))
         model_output = item.get("model_output") or ""
 
         gt = str(gt_raw).strip().upper()
