@@ -24,14 +24,11 @@ class KCLEssay:
         ]
 
     def _concat_columns(self, example):
-
-        input_text = ""
+        input_text = f'다음은 변호사 시험 사례형 문제입니다.\n\n'
+        input_text += f'문제: "{example["question"]}"\n\n'
         if self.with_precedents:
 
-            input_text += (
-                "다음의 [참고 판례]를 참조하여 [문제]에 답하세요.\n\n"
-            )
-            input_text += "[참고 판례]: \n"
+            input_text += "[참고판례]:\n"
 
             for content in example["supporting_precedents"]:
                 content_dict = json.loads(content)
@@ -44,8 +41,6 @@ class KCLEssay:
                         input_text += "\n".join([case_name, case_content])
 
                 input_text += "\n\n"
-
-        input_text += "[문제]: \n" + example["question"]
 
         return {"input_text": input_text.strip()}
 
