@@ -4,6 +4,32 @@ This repository provides the official evaluation implementation for Korean Canon
 
 [![Datasets](https://img.shields.io/badge/🤗 Datasets-KCL-yellow?style=flat)](https://huggingface.co/datasets/lbox/kcl) [![Paper](https://img.shields.io/badge/arXiv-1234.1234-red?style=flat&logo=arxiv&logoColor=red)](https://arxiv.org/abs/1234.1234)
 
+## Why KCL?
+
+KCL is designed to **disentangle knowledge coverage from evidence-grounded reasoning**.   
+
+KCL supports two complementary evaluation axes:
+1. **Knowledge Coverage**: performance without extra context.  
+2. **Evidence-Grounded Reasoning**: performance **with per-question supporting precedents** provided in-context.
+
+For essay questions, KCL further offers **instance-level rubrics** to enable **LLM-as-a-Judge** automated scoring.
+
+For more information, please refer to our paper 
+
+### Intended Uses
+ - Separating knowledge vs. reasoning by comparing vanilla and with-precedent settings.
+ - Legal RAG research using question-aligned gold precedents to establish retriever/reader upper bounds.
+ - Fine-grained feedback via rubric-level diagnostics on essay outputs.
+
+## Components
+
+- **KCL-Essay** (open-ended generation)  
+  - 169 questions, 550 supporting precedents, 2,739 instance-level rubrics.
+- **KCL-MCQA** (five-choice question answering)  
+  - 283 questions, 1,103 supporting precedents.
+ 
+## Usage
+
 ### Installation
 ```bash
 git clone https://github.com/lbox-kr/kcl.git
@@ -49,11 +75,6 @@ model_kwargs.thinking_budget=-1
 n_jobs=8
 ```
 
-### Results
-
-<img width="339" height="597" alt="fEb_RSiHVCGT6v0V7A13B" src="https://github.com/user-attachments/assets/c689fdb8-b89e-4c86-8232-0a871f40c448" />
-
-
 ## KCL MCQA
 
 ### Inference
@@ -74,9 +95,28 @@ model_kwargs.thinking_budget=-1
 n_jobs=8
 ```
 
-### Results
+## For Local Model
 
-<img width="339" height="616" alt="OmiTG5Tv6pN2PRtiBhspy" src="https://github.com/user-attachments/assets/f6326505-5611-4c66-a80d-a458549b3730" />
+The evaluation code assumes a local internal model exposed via an OpenAI-compatible API.   
+The local model is configured using a YAML file, as shown below.
+```yaml
+model_name: localmodel
+model_kwargs:
+  model_name: "google/gemma-3-27b-it"
+  port: 8000
+
+tasks: kcl_essay
+tasks_kwargs:
+  with_precedents: False
+
+n_jobs: 8
+verbose: False
+
+hydra:
+  run:
+    dir: outputs_infer/${tasks}/local/${model_kwargs.model_name}/${now:%Y-%m-%d_%H-%M-%S}
+```
+
 
 ## Citation
 
