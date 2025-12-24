@@ -75,6 +75,14 @@ model_kwargs.thinking_budget=-1
 n_jobs=8
 ```
 
+#### Cost
+
+Evaluation Cost Statistics (KCL-Essay)
+ * 169 questions – Gemini Flash token usage
+ * Input: 6,896,400 tokens × $0.30 / 1M
+ * Output: 780,173 tokens × $2.50 / 1M
+ * Approximate cost per run: less than $5 -> Using caching, the cost can be reduced further.
+
 ## KCL MCQA
 
 ### Inference
