@@ -129,11 +129,14 @@ hydra:
 ## Citation
 
 ```tex
-@misc{
-    kcl,
-    title={Korean Canonical Legal Benchmark: Toward Knowledge-Independent Evaluation of LLMs' Legal Reasoning Capabilities}, 
-    author={Hongseok Oh, Wonseok Hwang, and Kyoung-Woon On},
-    year={2025}
+@misc{oh2025koreancanonicallegalbenchmark,
+      title={Korean Canonical Legal Benchmark: Toward Knowledge-Independent Evaluation of LLMs' Legal Reasoning Capabilities}, 
+      author={Hongseok Oh and Wonseok Hwang and Kyoung-Woon On},
+      year={2025},
+      eprint={2512.24572},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2512.24572}, 
 }
 ```
 
