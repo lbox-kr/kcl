@@ -24,7 +24,7 @@ class KCLEssay:
         ]
 
     def _concat_columns(self, example):
-        input_text = f'다음은 변호사 시험 사례형 문제입니다.\n\n'
+        input_text = "다음은 변호사 시험 사례형 문제입니다.\n\n"
         input_text += f'문제: "{example["question"]}"\n\n'
         if self.with_precedents:
 

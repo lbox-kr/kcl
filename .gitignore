@@ -1,4 +1,5 @@
 uv.lock
+.venv
 .env
 .vertex_credentials.json
 __pycache__/

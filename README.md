@@ -105,15 +105,14 @@ n_jobs=8
 
 ## For Local Model
 
-The evaluation code assumes a local internal model exposed via an OpenAI-compatible API.   
-The local model is configured using a YAML file, as shown below.
+The evaluation code assumes a locally hosted internal model exposed via an OpenAI-compatible API.   
+The local model is configured using a YAML file, as shown below:   
 ```yaml
-model_name: localmodel
+model_name: "google/gemma-3-27b-it"
 model_kwargs:
-  model_name: "google/gemma-3-27b-it"
   port: 8000
 
-tasks: kcl_essay
+tasks: kcl_{essay|mcqa}
 tasks_kwargs:
   with_precedents: False
 
@@ -122,9 +121,16 @@ verbose: False
 
 hydra:
   run:
-    dir: outputs_infer/${tasks}/local/${model_kwargs.model_name}/${now:%Y-%m-%d_%H-%M-%S}
+    dir: outputs_infer/${tasks}/local/${model_name}/${now:%Y-%m-%d_%H-%M-%S}
 ```
+Save this configuration file as:   
+`scripts/infer/configs/kcl_{mcqa|essay}_local.yaml`
 
+Then, run the inference using the same command as follows:
+```
+./scripts/infer/run_infer.sh \
+./scripts/infer/configs/kcl_{mcqa|essay}_local.yaml
+```
 
 ## Citation
 

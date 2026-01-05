@@ -13,8 +13,7 @@ class KCLMCQA:
 
     def _concat_columns(self, example):
 
-        
-        input_text = f'다음은 변호사 시험 선택형 문제입니다.\n\n'
+        input_text = "다음은 변호사 시험 선택형 문제입니다.\n\n"
         input_text += f'문제: "{example["question"]}"\n\n'
 
         input_text += "선택지:\n"
@@ -34,7 +33,7 @@ class KCLMCQA:
                 input_text += "\n\n"
 
         input_text += (
-            '위의 문제와 각 선택지를 읽고 A, B, C, D, E 중 최종 답변을 출력하세요. '
+            "위의 문제와 각 선택지를 읽고 A, B, C, D, E 중 최종 답변을 출력하세요. "
             '최종 답변은 가장 마지막에 "정답은 X입니다." 와 같이 답해 주세요.\n'
         )
 
