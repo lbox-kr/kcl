@@ -4,6 +4,8 @@ This repository provides the official evaluation implementation for Korean Canon
 
 [![Datasets](https://img.shields.io/badge/🤗 Datasets-KCL-yellow?style=flat)](https://huggingface.co/datasets/lbox/kcl) [![Paper](https://img.shields.io/badge/arXiv-2512.24572-red?style=flat&logo=arxiv&logoColor=red)](https://arxiv.org/abs/2512.24572)
 
+🎉 Our paper has been accepted to the 19th Conference of the European Chapter of the Association for Computational Linguistics (EACL 2026, main, short.)!
+
 ## Why KCL?
 
 KCL is designed to **disentangle knowledge coverage from evidence-grounded reasoning**.   
@@ -135,14 +137,13 @@ Then, run the inference using the same command as follows:
 ## Citation
 
 ```tex
-@misc{oh2025koreancanonicallegalbenchmark,
-      title={Korean Canonical Legal Benchmark: Toward Knowledge-Independent Evaluation of LLMs' Legal Reasoning Capabilities}, 
-      author={Hongseok Oh and Wonseok Hwang and Kyoung-Woon On},
-      year={2025},
-      eprint={2512.24572},
-      archivePrefix={arXiv},
-      primaryClass={cs.CL},
-      url={https://arxiv.org/abs/2512.24572}, 
+@inproceedings{
+    oh2026korean,
+    title={Korean Canonical Legal Benchmark: Toward Knowledge-Independent Evaluation of {LLM}s' Legal Reasoning Capabilities},
+    author={Hongseok Oh and Wonseok Hwang and Kyoung-Woon On},
+    booktitle={19th Conference of the European Chapter of the Association for Computational Linguistics},
+    year={2026},
+    url={https://openreview.net/forum?id=Dw0sFP4l5s}
 }
 ```
 
