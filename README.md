@@ -111,6 +111,7 @@ The evaluation code assumes a locally hosted internal model exposed via an OpenA
 The local model is configured using a YAML file, as shown below:   
 ```yaml
 model_name: "google/gemma-3-27b-it"
+model_base_name: "gemma-3-27b-it"
 model_kwargs:
   port: 8000
 
@@ -123,7 +124,7 @@ verbose: False
 
 hydra:
   run:
-    dir: outputs_infer/${tasks}/local/${model_name}/${now:%Y-%m-%d_%H-%M-%S}
+    dir: outputs_infer/${tasks}/${model_base_name}/${now:%Y-%m-%d_%H-%M-%S}
 ```
 Save this configuration file as:   
 `scripts/infer/configs/kcl_{mcqa|essay}_local.yaml`
