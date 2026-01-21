@@ -6,7 +6,7 @@ class OAIModel:
     def __init__(
         self,
         model_name: str,
-        thinking_budget: str = "None",
+        thinking_budget: str = "medium",
     ):
         self.__set_client()
 
