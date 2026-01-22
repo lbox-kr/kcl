@@ -1,4 +1,4 @@
-# KCL
+# Korean Canonical Legal Benchmark (KCL)
 
 This repository provides the official evaluation implementation for Korean Canonical Legal Benchmark   
 
@@ -64,8 +64,8 @@ AWS_SESSION_TOKEN="..."
 ./scripts/infer/run_infer.sh \
 ./scripts/infer/configs/kcl_essay.yaml \
 model_name=gemini-2.5-flash \
-tasks_kwargs.with_precedents=True \
-model_kwargs.thinking_budget=-1
+tasks_kwargs.with_precedents=True
+# model_kwargs.thinking_budget=-1  # Optional: OAIModel defaults to "medium"
 ```
 
 ### Evaluation
@@ -92,8 +92,8 @@ Evaluation Cost Statistics (KCL-Essay)
 ```bash
 ./scripts/infer/run_infer.sh \
 ./scripts/infer/configs/kcl_mcqa.yaml \
-model_name=gemini-2.5-flash \
-model_kwargs.thinking_budget=-1
+model_name=gemini-2.5-flash
+# model_kwargs.thinking_budget=-1  # Optional: OAIModel defaults to "medium"
 ```
 
 ### Evaluation
@@ -134,6 +134,8 @@ Then, run the inference using the same command as follows:
 ./scripts/infer/run_infer.sh \
 ./scripts/infer/configs/kcl_{mcqa|essay}_local.yaml
 ```
+
+**Note:** The evaluation script allows model directory names with suffixes (e.g., `model_name_no_reasoning`). The directory name only needs to start with the base model name.
 
 ## Citation
 
