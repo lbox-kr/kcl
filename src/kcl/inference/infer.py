@@ -66,7 +66,8 @@ def main(cfg: DictConfig):
     logging.getLogger("httpx").propagate = cfg.verbose
     logging.getLogger("google_genai.models").propagate = cfg.verbose
 
-    model = get_model(cfg.model_name, **cfg.model_kwargs)
+    model_kwargs = cfg.get("model_kwargs", {})
+    model = get_model(cfg.model_name, **model_kwargs)
 
     loader = get_loader(cfg.tasks, **cfg.tasks_kwargs)
     task = loader.load()

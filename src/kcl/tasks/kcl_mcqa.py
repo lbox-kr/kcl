@@ -23,6 +23,11 @@ class KCLMCQA:
         input_text += f'D. "{example["D"]}"\n'
         input_text += f'E. "{example["E"]}"\n\n'
 
+        input_text += (
+            "위의 문제와 각 선택지를 읽고 A, B, C, D, E 중 최종 답변을 출력하세요. "
+            '최종 답변은 가장 마지막에 "정답은 X입니다." 와 같이 답해 주세요.\n'
+        )
+    
         if self.with_precedents:
             input_text += "[참고판례]:\n"
 
@@ -32,10 +37,7 @@ class KCLMCQA:
                     input_text += "\n".join([case_name, case_content])
                 input_text += "\n\n"
 
-        input_text += (
-            "위의 문제와 각 선택지를 읽고 A, B, C, D, E 중 최종 답변을 출력하세요. "
-            '최종 답변은 가장 마지막에 "정답은 X입니다." 와 같이 답해 주세요.\n'
-        )
+        
 
         return {"input_text": input_text.strip()}
 

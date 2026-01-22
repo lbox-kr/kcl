@@ -12,8 +12,8 @@ judge_model:
       
       ```json
         {
-          "점수": [int],
-          "근거": [string]
+          "item_score": [int],
+          "reason": [string]
         }
       ```
     model_answer_template: |-
@@ -23,7 +23,7 @@ judge_model:
     rubric_template: |-
       [평가척도]
       {rubrics_with_score}
-verbose: True
+verbose: False
 
 hydra:
   run:

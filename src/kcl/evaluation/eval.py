@@ -57,9 +57,10 @@ def main(cfg: DictConfig):
     tasks = inference_config.get("tasks")
     inference_model_name = inference_config.get("model_name")
 
-    if model_dir.name != inference_model_name.split("/")[-1]:
+    expected_model_name_base = inference_model_name.split("/")[-1]
+    if not model_dir.name.startswith(expected_model_name_base):
         raise ValueError(
-            f"Model directory name '{model_dir.name}' does not match inference model name '{inference_model_name}'"
+            f"Model directory name '{model_dir.name}' does not start with inference model name base '{expected_model_name_base}'"
         )
     if task_dir.name != tasks:
         raise ValueError(
