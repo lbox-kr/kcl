@@ -5,3 +5,8 @@ uv.lock
 __pycache__/
 outputs_infer/
 outputs_eval/
+.DS_Store
+*.pyc
+*.pyo
+*.pyd
+.Python

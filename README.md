@@ -1,6 +1,6 @@
 # Korean Canonical Legal Benchmark (KCL)
 
-This repository provides the official evaluation implementation for Korean Canonical Legal Benchmark   
+This repository provides the official evaluation implementation for Korean Canonical Legal Benchmark.  
 
 [![Datasets](https://img.shields.io/badge/🤗 Datasets-KCL-yellow?style=flat)](https://huggingface.co/datasets/lbox/kcl) [![Paper](https://img.shields.io/badge/arXiv-2512.24572-red?style=flat&logo=arxiv&logoColor=red)](https://arxiv.org/abs/2512.24572)
 
@@ -111,7 +111,6 @@ The evaluation code assumes a locally hosted internal model exposed via an OpenA
 The local model is configured using a YAML file, as shown below:   
 ```yaml
 model_name: "google/gemma-3-27b-it"
-model_base_name: "gemma-3-27b-it"
 model_kwargs:
   port: 8000
 
@@ -124,7 +123,7 @@ verbose: False
 
 hydra:
   run:
-    dir: outputs_infer/${tasks}/${model_base_name}/${now:%Y-%m-%d_%H-%M-%S}
+    dir: outputs_infer/${tasks}/${model_name}/${now:%Y-%m-%d_%H-%M-%S}
 ```
 Save this configuration file as:   
 `scripts/infer/configs/kcl_{mcqa|essay}_local.yaml`
@@ -135,7 +134,7 @@ Then, run the inference using the same command as follows:
 ./scripts/infer/configs/kcl_{mcqa|essay}_local.yaml
 ```
 
-**Note:** The evaluation script allows model directory names with suffixes (e.g., `model_name_no_reasoning`). The directory name only needs to start with the base model name.
+**Note:** The evaluation script allows model directory names with suffixes (e.g., `gemma-3-27b-it_no_reasoning`). The directory name only needs to start with the base model name (the part after the last `/` in `model_name`).
 
 ## Citation
 
